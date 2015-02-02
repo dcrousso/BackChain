@@ -1,0 +1,10 @@
+{
+	"appName": {
+		"message": "BackChain",
+		"description": "Extension Name."
+	},
+	"appDescription": {
+		"message": "Adds a button to the top-left of the page to return to the website from which this page was linked.",
+		"description": "Extension Description."
+	}
+}
