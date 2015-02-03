@@ -8,7 +8,7 @@ for(var i = 0; i < links.length; i++) {
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if(request.backChainOriginURL.length > 0) {
+	if(request.backChainOriginURL.length > 0 && !document.getElementById("previousDomain")) {
 		insertBackLink(request.backChainOriginURL);
 	}
 });
@@ -21,7 +21,7 @@ function insertBackLink(url) {
 	previousDomain.style.left = 0;
 	previousDomain.style.padding = "7px";
 	previousDomain.style.borderRadius = "0 0 5px 0";
-	previousDomain.style.zIndex = 100000;
+	previousDomain.style.zIndex = 10000000000; // Should never need this, but just in case
 	previousDomain.style.backgroundColor = "#000";
 	previousDomain.style.opacity = 0.5;
 	previousDomain.style.transition = "opacity 0.5s";

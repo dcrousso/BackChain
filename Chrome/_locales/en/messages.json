@@ -4,7 +4,7 @@
 		"description": "Extension Name."
 	},
 	"appDescription": {
-		"message": "Adds a button to the top-left of the page to return to the website from which this page was linked.",
+		"message": "Adds a button to the top-left of every page to return to the website from which that page was linked.",
 		"description": "Extension Description."
 	}
 }
