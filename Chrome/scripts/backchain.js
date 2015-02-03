@@ -37,6 +37,9 @@ function insertBackLink(url) {
 	var previousLink = document.createElement("a");
 	previousLink.href = url;
 	previousLink.innerHTML = "Return to Source";
+	previousLink.style.fontFamily = "Helvetica, Arial, sans-serif";
+	previousLink.style.fontSize = "16px";
+	previousLink.style.textDecoration = "none";
 	previousLink.style.color = "#fff";
 	previousDomain.appendChild(previousLink);
 }
