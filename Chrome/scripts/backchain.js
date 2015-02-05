@@ -1,6 +1,6 @@
 var links = document.getElementsByTagName("a");
 for(var i = 0; i < links.length; i++) {
-	if(links[i].href.indexOf(location.origin) < 0) {
+	if(links[i].href.indexOf(location.hostname) < 0) {
 		links[i].addEventListener("click", function(e) {
 			chrome.runtime.sendMessage({backChainURL: this.href.replace(/http.?:\/\//, "//")});
 		});
@@ -10,6 +10,12 @@ for(var i = 0; i < links.length; i++) {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	if(request.backChainOriginURL.length > 0 && !document.getElementById("previousDomain")) {
 		insertBackLink(request.backChainOriginURL);
+	}
+});
+
+document.addEventListener("load", function() {
+	if(document.referrer.length > 0 && !document.getElementById("previousDomain")) {
+		insertBackLink(document.referrer);
 	}
 });
 
