@@ -2,14 +2,17 @@ var links = document.getElementsByTagName("a");
 for(var i = 0; i < links.length; i++) {
 	if(links[i].href.indexOf(location.hostname) < 0) {
 		links[i].addEventListener("click", function(e) {
-			chrome.runtime.sendMessage({backChainURL: this.href.replace(/http.?:\/\//, "//")});
+			chrome.runtime.sendMessage({
+				backChainURL: this.href.replace(/http.?:\/\//, "//"),
+				backChainOriginURL: getURL(this)
+			});
 		});
 	}
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if(request.backChainOriginURL.length > 0 && !document.getElementById("previousDomain")) {
-		insertBackLink(request.backChainOriginURL);
+	if(request.backChainLinkURL.length > 0 && !document.getElementById("previousDomain")) {
+		insertBackLink(request.backChainLinkURL);
 	}
 });
 
@@ -18,6 +21,23 @@ document.addEventListener("load", function() {
 		insertBackLink(document.referrer);
 	}
 });
+
+function getURL(element) {
+	var url = location.href;
+	// Site specific backChain linking
+	if(location.hostname.indexOf("reddit") >= 0) {
+		var e = findParentWithClass(element, "thing id-");
+		url = e.querySelector(".entry .buttons .first a").href;
+	}
+	return url.replace(/http.?:\/\//, "//");
+}
+
+function findParentWithClass(element, classString) {
+	var parent = element.parentNode;
+	if(parent.className.indexOf(classString) >= 0) {
+		return parent;
+	} else return findParentWithClass(parent, classString);
+}
 
 function insertBackLink(url) {
 	var previousDomain = document.createElement("div");
