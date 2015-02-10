@@ -27,14 +27,18 @@ function getURL(element) {
 	// Site specific backChain linking
 	if(location.hostname.indexOf("reddit") >= 0) {
 		var e = findParentWithClass(element, "thing id-");
-		url = e.querySelector(".entry .buttons .first a").href;
+		if(e) {
+			url = e.querySelector(".entry .buttons .first a").href;
+		}
 	}
 	return url.replace(/http.?:\/\//, "//");
 }
 
 function findParentWithClass(element, classString) {
 	var parent = element.parentNode;
-	if(parent.className.indexOf(classString) >= 0) {
+	if(!parent) {
+		return null;
+	} else if(parent.className.indexOf(classString) >= 0) {
 		return parent;
 	} else return findParentWithClass(parent, classString);
 }
