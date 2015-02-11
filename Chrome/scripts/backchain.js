@@ -30,6 +30,11 @@ function getURL(element) {
 		if(e) {
 			url = e.querySelector(".entry .buttons .first a").href;
 		}
+	} else if(location.hostname.indexOf("news.ycombinator") >= 0) {
+		var e = element.parentNode.parentNode.nextSibling;
+		if(e) {
+			url = e.querySelector(".subtext a[href^='item?id=']").href;
+		}
 	}
 	return url.replace(/http.?:\/\//, "//");
 }
