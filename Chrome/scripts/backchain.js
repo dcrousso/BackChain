@@ -11,14 +11,12 @@ for(var i = 0; i < links.length; i++) {
 }
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if(request.backChainLinkURL.length > 0 && !document.getElementById("previousDomain")) {
-		insertBackLink(request.backChainLinkURL);
-	}
-});
-
-document.addEventListener("load", function() {
-	if(document.referrer.length > 0 && !document.getElementById("previousDomain")) {
-		insertBackLink(document.referrer);
+	if(!document.getElementById("previousDomain")) {
+		if(request.backChainLinkURL.length > 0) {
+			insertBackLink(request.backChainLinkURL);
+		} else if(document.referrer.length > 0) {
+			insertBackLink(document.referrer);
+		}
 	}
 });
 
