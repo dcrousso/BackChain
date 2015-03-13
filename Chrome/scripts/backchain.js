@@ -35,6 +35,11 @@ function getURL(element) {
 		if(e) {
 			url = e.querySelector(".subtext a[href^='item?id=']").href;
 		}
+	} else if(location.hostname.indexOf("facebook") >= 0) {
+		var e = findParentWithClass(element, "userContentWrapper");
+		if(e) {
+			url = e.querySelector("a._5pcq").href;
+		}
 	}
 	return url.replace(/http.?:\/\//, "//");
 }
